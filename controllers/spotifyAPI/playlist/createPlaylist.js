@@ -1,6 +1,12 @@
 const axios = require('axios');
 
-async function createPlaylist(token, name, description, isPublic, user_id) {
+async function createPlaylist(req, res) {
+  const token = req.query.token;
+  const name = req.body.name;
+  const description = req.body.description;
+  const isPublic = req.body.public;
+  const user_id = req.body.user_id;
+
   try {
     const options = {
       headers: {
@@ -16,10 +22,12 @@ async function createPlaylist(token, name, description, isPublic, user_id) {
       public: isPublic
     }, options);
 
-    console.log(response.data);
+    res.status(201).json(response.data);
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error: 'Error creating playlist' });
   }
 }
+
 
 module.exports = createPlaylist;

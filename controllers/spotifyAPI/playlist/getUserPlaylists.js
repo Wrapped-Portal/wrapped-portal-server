@@ -1,7 +1,9 @@
-
 const axios = require('axios');
 
-async function getUserPlaylists(token) {
+async function getUserPlaylists(req, res) {
+  const token = req.query.token;
+  console.log(token);
+
   try {
     const options = {
       headers: {
@@ -12,10 +14,12 @@ async function getUserPlaylists(token) {
     };
 
     const response = await axios.get('https://api.spotify.com/v1/me/playlists?limit=20', options);
-    console.log(response.data);
+    res.status(200).json(response.data);
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error: 'Error retrieving user playlists' });
   }
 }
+
 
 module.exports = getUserPlaylists;
