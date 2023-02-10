@@ -5,6 +5,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const PORT = process.env.PORT || 3001;
 const { refreshCallback } = require('./controllers/refreshCallback.js');
 const { loginCallback } = require('./controllers/loginCallback.js');
+const getUserPlaylists = require('./controllers/spotifyAPI/playlist/getUserPlaylists');
 
 app.get('/', (req, res) => {
   res.status(200);
@@ -60,5 +61,9 @@ app.post('/about', (req, res) => {
       res.sendStatus(400);
     });
 });
+
+app.get('/playlist', getUserPlaylists);
+
+
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
