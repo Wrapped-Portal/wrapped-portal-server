@@ -1,3 +1,5 @@
+/** @format */
+
 require('dotenv').config();
 const express = require('express');
 const app = express();
@@ -18,10 +20,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.status(200);
-});
+const cors = require('cors');
 
+app.use(cors());
+app.use(express.json());
+
+
+app.get('/', (req, res) => {
+  res.status(200).send({ Proof: 'Of Life' });
+});
 app.post('/login', loginCallback);
 
 app.post('/refresh', refreshCallback);
@@ -38,14 +45,14 @@ app.post('/refresh', (req, res) => {
 
   spotifyApi
     .refreshAccessToken()
-    .then(data => {
+    .then((data) => {
       console.log(data.body);
       res.json({
         accessToken: data.body.access_token,
         expiresIn: data.body.expires_in,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error.message);
       res.sendStatus(400);
     });
@@ -60,14 +67,14 @@ app.post('/about', (req, res) => {
   });
   spotifyApi
     .refreshAccessToken(code)
-    .then(data => {
+    .then((data) => {
       console.log(data.body);
       res.json({
         accessToken: data.body.access_token,
         expiresIn: data.body.expires_in,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error.message);
       res.sendStatus(400);
     });
