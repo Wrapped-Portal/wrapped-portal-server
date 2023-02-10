@@ -1,3 +1,5 @@
+/** @format */
+
 require('dotenv').config();
 const express = require('express');
 const app = express();
@@ -6,11 +8,14 @@ const PORT = process.env.PORT || 3001;
 const { refreshCallback } = require('./controllers/refreshCallback.js');
 const { loginCallback } = require('./controllers/loginCallback.js');
 const getUserPlaylists = require('./controllers/spotifyAPI/playlist/getUserPlaylists');
+const cors = require('cors');
+
+app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.status(200);
+  res.status(200).send({ Proof: 'Of Life' });
 });
-
 app.post('/login', loginCallback);
 
 app.post('/refresh', refreshCallback);
@@ -27,14 +32,14 @@ app.post('/refresh', (req, res) => {
 
   spotifyApi
     .refreshAccessToken()
-    .then(data => {
+    .then((data) => {
       console.log(data.body);
       res.json({
         accessToken: data.body.access_token,
         expiresIn: data.body.expires_in,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error.message);
       res.sendStatus(400);
     });
@@ -49,21 +54,19 @@ app.post('/about', (req, res) => {
   });
   spotifyApi
     .refreshAccessToken(code)
-    .then(data => {
+    .then((data) => {
       console.log(data.body);
       res.json({
         accessToken: data.body.access_token,
         expiresIn: data.body.expires_in,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error.message);
       res.sendStatus(400);
     });
 });
 
 app.get('/playlist', getUserPlaylists);
-
-
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
