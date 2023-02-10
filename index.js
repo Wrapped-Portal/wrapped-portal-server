@@ -1,11 +1,22 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const SpotifyWebApi = require('spotify-web-api-node');
 const PORT = process.env.PORT || 3001;
 const { refreshCallback } = require('./controllers/refreshCallback.js');
 const { loginCallback } = require('./controllers/loginCallback.js');
 const getUserPlaylists = require('./controllers/spotifyAPI/playlist/getUserPlaylists');
+const getTopResults = require('./controllers/spotifyAPI/topResults/getTopResults');
+const getRecommendations = require('./controllers/spotifyAPI/recommendations/getReccommendations');
+const createPlaylists = require('./controllers/spotifyAPI/playlist/createPlaylist');
+const addTrackToPlaylist = require('./controllers/spotifyAPI/playlist/addTrackToPlaylist');
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+ 
+// parse application/json
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.status(200);
@@ -64,6 +75,12 @@ app.post('/about', (req, res) => {
 
 app.get('/playlist', getUserPlaylists);
 
+app.post('/playlist', createPlaylists);
 
+app.post('/track', addTrackToPlaylist);
+
+app.get('/top' , getTopResults);
+
+app.get('/reccommendation', getRecommendations);
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
