@@ -1,6 +1,14 @@
 const axios = require('axios');
 
-const getRecommendations = async (token, query, genre, dnce, energy, loud, vibe) => {
+const getRecommendations = async (req, res) => {
+  const token = req.query.token;
+  const query = req.query.query;
+  const genre = req.query.genre;
+  const dnce = req.query.dnce;
+  const energy = req.query.energy;
+  const loud = req.query.loud;
+  const vibe = req.query.vibe;
+
   try {
     const artistSearch = await axios({
       method: 'get',
@@ -24,10 +32,12 @@ const getRecommendations = async (token, query, genre, dnce, energy, loud, vibe)
       }
     });
 
-    return songArr.data;
+    res.status(200).json(songArr.data);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ error: 'Error retrieving song recommendations' });
   }
 };
+
 
 module.exports = getRecommendations;
