@@ -11,7 +11,7 @@ const getTopResults = require('../controllers/spotifyAPI/topResults/getTopResult
 const getRecommendations = require('../controllers/spotifyAPI/recommendations/getRecommendations');
 const spotifyRoutes = express.Router();
 
-spotifyRoutes.route('/playlist').post(getUserPlaylists);
+spotifyRoutes.route('/playlist').get(getUserPlaylists);
 
 spotifyRoutes.route('/playlist').post(createPlaylists);
 
