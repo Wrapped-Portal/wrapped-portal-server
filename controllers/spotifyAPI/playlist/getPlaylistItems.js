@@ -1,8 +1,8 @@
 const axios = require('axios');
 
-async function getUserPlaylists(req, res) {
+async function getPlaylistItems(req, res) {
   const token = req.query.token;
-
+  const playlistId = req.query.playlistId;
 
   try {
     const options = {
@@ -13,13 +13,12 @@ async function getUserPlaylists(req, res) {
       }
     };
 
-    const response = await axios.get('https://api.spotify.com/v1/me/playlists?limit=20', options);
+    const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=50`, options);
     res.status(200).json(response.data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error retrieving user playlists' });
+    res.status(500).json({ error: 'Error retrieving playlist tracks' });
   }
 }
 
-
-module.exports = getUserPlaylists;
+module.exports = getPlaylistItems;
