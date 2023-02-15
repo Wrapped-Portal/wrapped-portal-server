@@ -7,8 +7,6 @@ async function createPlaylist(req, res) {
   const isPublic = req.body.public;
   const user_id = req.body.user_id;
 
-  console.log(token);
-
   try {
     const options = {
       headers: {
