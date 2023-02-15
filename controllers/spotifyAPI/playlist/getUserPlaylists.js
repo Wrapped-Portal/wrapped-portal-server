@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function getUserPlaylists(req, res) {
   const token = req.query.token;
-  console.log(token);
+
 
   try {
     const options = {
