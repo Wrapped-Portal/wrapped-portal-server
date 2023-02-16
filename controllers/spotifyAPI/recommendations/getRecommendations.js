@@ -14,39 +14,33 @@ const getRecommendations = async (req, res) => {
   const popular = req.query.popular;
   const instrumental = req.query.instrumental;
 
-
   let songArrUrl = `https://api.spotify.com/v1/recommendations?limit=9`;
-  
-  if (genre) {
-    songArrUrl += `&seed_genres=${genre}`;
-  }
-  
-  if (dance) {
-    songArrUrl += `&target_danceability=${dance}`;
-  }
-  
-  if (energy) {
-    songArrUrl += `&target_energy=${energy}`;
-  }
-  
-  if (loud) {
-    songArrUrl += `&target_loudness=${loud}`;
-  }
-  
-  if (vibe) {
-    songArrUrl += `&target_valence=${vibe}`;
-  }
 
-  if(tempo){
-    songArrUrl += `&target_tempo=${tempo}`;
-  }
-
-  if(popular){
-    songArrUrl += `&target_popularity=${popular}`;
-  }
-
-  if (instrumental){
-    songArrUrl += `&target_instrumentalness=${instrumental}`;
+  switch (true) {
+    case Boolean(genre):
+      songArrUrl += `&seed_genres=${genre}`;
+      break;
+    case Boolean(dance):
+      songArrUrl += `&target_danceability=${dance}`;
+      break;
+    case Boolean(energy):
+      songArrUrl += `&target_energy=${energy}`;
+      break;
+    case Boolean(loud):
+      songArrUrl += `&target_loudness=${loud}`;
+      break;
+    case Boolean(vibe):
+      songArrUrl += `&target_valence=${vibe}`;
+      break;
+    case Boolean(tempo):
+      songArrUrl += `&target_tempo=${tempo}`;
+      break;
+    case Boolean(popular):
+      songArrUrl += `&target_popularity=${popular}`;
+      break;
+    case Boolean(instrumental):
+      songArrUrl += `&target_instrumentalness=${instrumental}`;
+      break;
   }
 
   try {
@@ -62,12 +56,11 @@ const getRecommendations = async (req, res) => {
 
     const artistId = artistSearch.data.artists.items[0].id;
 
-    if(artistId) {
+    if (artistId) {
       songArrUrl += `&seed_artists=${artistId}`;
     }
 
     console.log(artistId);
-    
 
     console.log(songArrUrl);
     const songArr = await axios({
@@ -78,7 +71,6 @@ const getRecommendations = async (req, res) => {
         'Content-type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-
     });
 
     res.status(200).json(songArr.data);
@@ -87,6 +79,5 @@ const getRecommendations = async (req, res) => {
     res.status(500).json({ error: 'Error retrieving song recommendations' });
   }
 };
-
 
 module.exports = getRecommendations;
