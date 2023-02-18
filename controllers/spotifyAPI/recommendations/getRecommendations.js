@@ -5,7 +5,7 @@ const axios = require('axios');
 const getRecommendations = async (req, res) => {
   const token = req.query.token;
   const artist = req.query.artist;
-  const genre = req.query.genre;
+  const genre = req.query.stringifiedGenre;
   const dance = req.query.dance;
   const energy = req.query.energy;
   const loud = req.query.loud;
@@ -14,34 +14,36 @@ const getRecommendations = async (req, res) => {
   const popular = req.query.popular;
   const instrumental = req.query.instrumental;
 
+
+
   let songArrUrl = `https://api.spotify.com/v1/recommendations?limit=9`;
 
-  switch (true) {
-    case Boolean(genre):
-      songArrUrl += `&seed_genres=${genre}`;
-      break;
-    case Boolean(dance):
-      songArrUrl += `&target_danceability=${dance}`;
-      break;
-    case Boolean(energy):
-      songArrUrl += `&target_energy=${energy}`;
-      break;
-    case Boolean(loud):
-      songArrUrl += `&target_loudness=${loud}`;
-      break;
-    case Boolean(vibe):
-      songArrUrl += `&target_valence=${vibe}`;
-      break;
-    case Boolean(tempo):
-      songArrUrl += `&target_tempo=${tempo}`;
-      break;
-    case Boolean(popular):
-      songArrUrl += `&target_popularity=${popular}`;
-      break;
-    case Boolean(instrumental):
-      songArrUrl += `&target_instrumentalness=${instrumental}`;
-      break;
+  if (typeof genre !== 'undefined') {
+    songArrUrl += `&seed_genres=${genre}`;
   }
+  if (typeof dance !== 'undefined') {
+    songArrUrl += `&target_danceability=${dance}`;
+  }
+  if (typeof energy !== 'undefined') {
+    songArrUrl += `&target_energy=${energy}`;
+  }
+  if (typeof loud !== 'undefined') {
+    songArrUrl += `&target_loudness=${loud}`;
+  }
+  if (typeof vibe !== 'undefined') {
+    songArrUrl += `&target_valence=${vibe}`;
+  }
+  if (typeof tempo !== 'undefined') {
+    songArrUrl += `&target_tempo=${tempo}`;
+  }
+  if (typeof popular !== 'undefined') {
+    songArrUrl += `&target_popularity=${popular}`;
+  }
+  if (typeof instrumental !== 'undefined') {
+    songArrUrl += `&target_instrumentalness=${instrumental}`;
+  }
+
+  console.log(songArrUrl);
 
   try {
     const artistSearch = await axios({
@@ -60,9 +62,8 @@ const getRecommendations = async (req, res) => {
       songArrUrl += `&seed_artists=${artistId}`;
     }
 
-    console.log(artistId);
-
     console.log(songArrUrl);
+
     const songArr = await axios({
       method: 'get',
       url: songArrUrl,
@@ -81,3 +82,4 @@ const getRecommendations = async (req, res) => {
 };
 
 module.exports = getRecommendations;
+
