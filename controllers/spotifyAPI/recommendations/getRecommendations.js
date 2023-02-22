@@ -18,28 +18,28 @@ const getRecommendations = async (req, res) => {
 
   let songArrUrl = `https://api.spotify.com/v1/recommendations?limit=9`;
 
-  if (typeof genre !== 'undefined') {
+  if (genre) {
     songArrUrl += `&seed_genres=${genre}`;
   }
-  if (typeof dance !== 'undefined') {
+  if (dance) {
     songArrUrl += `&target_danceability=${dance}`;
   }
-  if (typeof energy !== 'undefined') {
+  if (energy) {
     songArrUrl += `&target_energy=${energy}`;
   }
-  if (typeof loud !== 'undefined') {
+  if (loud) {
     songArrUrl += `&target_loudness=${loud}`;
   }
-  if (typeof vibe !== 'undefined') {
+  if (vibe) {
     songArrUrl += `&target_valence=${vibe}`;
   }
-  if (typeof tempo !== 'undefined') {
+  if (tempo) {
     songArrUrl += `&target_tempo=${tempo}`;
   }
-  if (typeof popular !== 'undefined') {
+  if (popular) {
     songArrUrl += `&target_popularity=${popular}`;
   }
-  if (typeof instrumental !== 'undefined') {
+  if (instrumental) {
     songArrUrl += `&target_instrumentalness=${instrumental}`;
   }
 
