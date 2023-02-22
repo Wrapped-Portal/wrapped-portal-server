@@ -16,7 +16,7 @@ const getRecommendations = async (req, res) => {
 
 
 
-  let songArrUrl = `https://api.spotify.com/v1/recommendations?limit=9`;
+  let songArrUrl = `https://api.spotify.com/v1/recommendations?limit=18`;
 
   if (genre) {
     songArrUrl += `&seed_genres=${genre}`;
