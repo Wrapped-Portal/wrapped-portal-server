@@ -4,6 +4,9 @@ async function removePlaylistItem(req, res) {
   const token = req.query.token;
   const playlistId = req.body.playlistId;
   const trackUri = req.body.trackUri;
+  const index = req.body.index;
+
+  console.log(index);
 
   try {
     const options = {
@@ -16,6 +19,7 @@ async function removePlaylistItem(req, res) {
         "tracks": [
           {
             "uri": trackUri,
+            "positions": [index]
           }
         ]
       }
