@@ -1,5 +1,3 @@
-/** @format */
-
 'use strict';
 /** @format */
 
@@ -12,7 +10,11 @@ const getRecommendations = require('../controllers/spotifyAPI/recommendations/ge
 const getUser = require('../controllers/spotifyAPI//user/getUser');
 const getRecentlyPlayed = require('../controllers/spotifyAPI/playlist/getRecentlyPlayed');
 const addTrackToPlaylist = require('../controllers/spotifyAPI/playlist/addTrackToPlaylist');
+
 const searchBar = require('../controllers/spotifyAPI/searchBar');
+
+const removeTrackFromPlaylist = require('../controllers/spotifyAPI/playlist/removePlaylistItem');
+
 const spotifyRoutes = express.Router();
 
 spotifyRoutes.route('/user').get(getUser);
@@ -31,6 +33,10 @@ spotifyRoutes.route('/recommendation').get(getRecommendations);
 
 spotifyRoutes.route('/recent').post(getRecentlyPlayed);
 
+
 spotifyRoutes.route('/search').get(searchBar);
+
+spotifyRoutes.route('/remove').delete(removeTrackFromPlaylist);
+
 
 module.exports = spotifyRoutes;
