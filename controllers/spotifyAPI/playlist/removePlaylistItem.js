@@ -1,3 +1,5 @@
+/** @format */
+
 const axios = require('axios');
 
 async function removePlaylistItem(req, res) {
@@ -6,27 +8,27 @@ async function removePlaylistItem(req, res) {
   const trackUri = req.body.trackUri;
   const index = req.body.index;
 
-  console.log(index);
-
   try {
     const options = {
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       data: {
-        "tracks": [
+        tracks: [
           {
-            "uri": trackUri,
-            "positions": [index]
-          }
-        ]
-      }
+            uri: trackUri,
+            positions: [index],
+          },
+        ],
+      },
     };
-    
 
-    const response = await axios.delete(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, options);
+    const response = await axios.delete(
+      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+      options,
+    );
 
     res.status(200).json(response.data);
   } catch (error) {
