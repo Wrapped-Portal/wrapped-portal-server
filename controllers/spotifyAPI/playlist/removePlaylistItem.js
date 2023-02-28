@@ -6,8 +6,6 @@ async function removePlaylistItem(req, res) {
   const trackUri = req.body.trackUri;
   const index = req.body.index;
 
-  console.log(index);
-
   try {
     const options = {
       headers: {
