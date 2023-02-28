@@ -16,19 +16,19 @@ async function searchSongs(req, res) {
    
 
     const tracksResponse = await axios.get(
-      `https://api.spotify.com/v1/search?q=${queryString}&type=track&limit=5`,
+      `https://api.spotify.com/v1/search?q=${queryString}&type=track&limit=6`,
       options,
     );
     const tracks = JSON.parse(JSON.stringify(tracksResponse.data));
 
     const artistsResponse = await axios.get(
-      `https://api.spotify.com/v1/search?q=${queryString}&type=artist&limit=5`,
+      `https://api.spotify.com/v1/search?q=${queryString}&type=artist&limit=6`,
       options,
     );
     const artists = JSON.parse(JSON.stringify(artistsResponse.data));
 
     const albumsResponse = await axios.get(
-      `https://api.spotify.com/v1/search?q=${queryString}&type=album&limit=5`,
+      `https://api.spotify.com/v1/search?q=${queryString}&type=album&limit=6`,
       options,
     );
     const albums = JSON.parse(JSON.stringify(albumsResponse.data));
