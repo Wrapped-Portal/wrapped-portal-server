@@ -13,7 +13,6 @@ async function searchSongs(req, res) {
         Authorization: `Bearer ${token}`,
       },
     };
-   
 
     const tracksResponse = await axios.get(
       `https://api.spotify.com/v1/search?q=${queryString}&type=track&limit=6`,

@@ -1,3 +1,5 @@
+/** @format */
+
 const axios = require('axios');
 
 async function createPlaylist(req, res) {
@@ -10,21 +12,26 @@ async function createPlaylist(req, res) {
   try {
     const options = {
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     };
 
-    const response = await axios.post(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
-      name: name,
-      description: description,
-      public: isPublic
-    }, options);
+    const response = await axios.post(
+      `https://api.spotify.com/v1/users/${user_id}/playlists`,
+      {
+        name: name,
+        description: description,
+        public: isPublic,
+      },
+      options,
+    );
 
     res.status(201).json(response.data);
+    console.log('playlist Created');
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     res.status(500).json({ error: 'Error creating playlist' });
   }
 }

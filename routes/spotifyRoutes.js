@@ -1,3 +1,5 @@
+/** @format */
+
 'use strict';
 /** @format */
 
@@ -33,10 +35,8 @@ spotifyRoutes.route('/recommendation').get(getRecommendations);
 
 spotifyRoutes.route('/recent').post(getRecentlyPlayed);
 
-
 spotifyRoutes.route('/search').get(searchBar);
 
 spotifyRoutes.route('/remove').delete(removeTrackFromPlaylist);
-
 
 module.exports = spotifyRoutes;
