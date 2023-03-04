@@ -6,7 +6,7 @@ async function getTopResults(req, res) {
   const range = req.query.range;
   
   try {
-    const response = await axios.get(`https://api.spotify.com/v1/me/top/${type}?time_range=${range}&limit=25`, {
+    const response = await axios.get(`https://api.spotify.com/v1/me/top/${type}?time_range=${range}&limit=50`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
