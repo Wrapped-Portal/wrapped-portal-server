@@ -13,13 +13,23 @@ const getUser = require('../controllers/spotifyAPI//user/getUser');
 const getRecentlyPlayed = require('../controllers/spotifyAPI/playlist/getRecentlyPlayed');
 const addTrackToPlaylist = require('../controllers/spotifyAPI/playlist/addTrackToPlaylist');
 
+const getArtistTop = require('../controllers/spotifyAPI/topResults/getArtistTop');
+
 const searchBar = require('../controllers/spotifyAPI/searchBar');
 
 const removeTrackFromPlaylist = require('../controllers/spotifyAPI/playlist/removePlaylistItem');
 
+const getAlbumTracks = require('../controllers/spotifyAPI/topResults/getAlbumTracks');
+
+
 const spotifyRoutes = express.Router();
 
+
 spotifyRoutes.route('/user').get(getUser);
+
+spotifyRoutes.route('/artist').get(getArtistTop);
+
+spotifyRoutes.route('/album').get(getAlbumTracks);
 
 spotifyRoutes.route('/playlistitems').get(getPlaylistItems);
 
