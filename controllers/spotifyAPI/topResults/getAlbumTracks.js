@@ -2,7 +2,9 @@ const axios = require('axios');
 
 async function getAlbumTracks(req, res) {
   const token = req.query.token;
-  const albumId = req.body.albumId;
+  const albumId = req.query.albumId;
+
+
   
   try {
     const response = await axios.get(`https://api.spotify.com/v1/albums/${albumId}/tracks?market=US&limit=50`, {
