@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function getArtistTop(req, res) {
   const token = req.query.token;
-  const artistId = req.body.artistId;
+  const artistId = req.query.artistId;
   
   try {
     const response = await axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`, {
