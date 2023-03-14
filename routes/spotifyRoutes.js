@@ -5,6 +5,7 @@
 
 const express = require('express');
 const getPlaylistItems = require('../controllers/spotifyAPI/playlist/getPlaylistItems');
+const getMorePlaylistItems = require('../controllers/spotifyAPI/playlist/getMorePlaylistItems')
 const getUserPlaylists = require('../controllers/spotifyAPI/playlist/getUserPlaylists');
 const createPlaylists = require('../controllers/spotifyAPI/playlist/createPlaylist');
 const getTopResults = require('../controllers/spotifyAPI/topResults/getTopResults');
@@ -32,6 +33,8 @@ spotifyRoutes.route('/artist').get(getArtistTop);
 spotifyRoutes.route('/album').get(getAlbumTracks);
 
 spotifyRoutes.route('/playlistitems').get(getPlaylistItems);
+
+spotifyRoutes.route('/moreplaylist').get(getMorePlaylistItems);
 
 spotifyRoutes.route('/playlist').get(getUserPlaylists);
 
