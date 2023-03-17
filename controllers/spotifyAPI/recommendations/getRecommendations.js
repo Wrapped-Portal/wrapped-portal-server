@@ -4,7 +4,8 @@ const axios = require('axios');
 
 const getRecommendations = async (req, res) => {
   const token = req.query.token;
-  const artist = req.query.artist;
+  const type = req.query.type;
+  const input = req.query.input;
   const genre = req.query.stringifiedGenre;
   const dance = req.query.dance;
   const energy = req.query.energy;
@@ -15,10 +16,6 @@ const getRecommendations = async (req, res) => {
   const instrumental = req.query.instrumental;
   const acoustic = req.query.acoustic;
   const live = req.query.live;
-
-
-
-
 
   let songArrUrl = `https://api.spotify.com/v1/recommendations?limit=25`;
 
@@ -48,7 +45,7 @@ const getRecommendations = async (req, res) => {
   if (tempo) {
     const tempoNum = parseFloat(tempo);
     const tempoDivided = 1.4 * tempoNum + 60;
-    const roundedTempo = Math.round(tempoDivided); // rounding the tempo value
+    const roundedTempo = Math.round(tempoDivided);
     songArrUrl += `&target_tempo=${roundedTempo}`;
   }
   if (popular) {
@@ -70,26 +67,24 @@ const getRecommendations = async (req, res) => {
     songArrUrl += `&target_liveness=${liveDivided}`;
   }
 
-  console.log(songArrUrl);
-
   try {
-    const artistSearch = await axios({
+    const response = await axios({
       method: 'get',
-      url: `https://api.spotify.com/v1/search?q=${artist}&type=artist&limit=1`,
+      url: `https://api.spotify.com/v1/search?q=${input}&type=${type}&limit=1`,
       headers: {
-        accept: 'application/json',
+        Accept: 'application/json',
         'Content-type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-    });
-
-    const artistId = artistSearch.data.artists.items[0].id;
-
-    if (artistId) {
-      songArrUrl += `&seed_artists=${artistId}`;
     }
+    );
 
-    console.log(songArrUrl);
+    if (response.data.artists) {
+      songArrUrl += `&seed_artists=${response.data.artists.items[0].id}`;
+    }
+    if (response.data.tracks) {
+      songArrUrl += `&seed_tracks=${response.data.tracks.items[0].id}`;
+    }
 
     const songArr = await axios({
       method: 'get',
