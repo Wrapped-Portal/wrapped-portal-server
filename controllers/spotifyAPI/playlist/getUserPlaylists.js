@@ -13,7 +13,7 @@ async function getUserPlaylists(req, res) {
       }
     };
 
-    const response = await axios.get('https://api.spotify.com/v1/me/playlists?limit=20', options);
+    const response = await axios.get('https://api.spotify.com/v1/me/playlists?limit=50', options);
     res.status(200).json(response.data);
   } catch (error) {
     console.error(error);
